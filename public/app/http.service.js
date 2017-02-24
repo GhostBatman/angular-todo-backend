@@ -29,9 +29,9 @@ System.register(['@angular/core', '@angular/http'], function(exports_1, context_
                 HttpService.prototype.getData = function () {
                     return this.http.get('/getItems');
                 };
-                HttpService.prototype.setTask = function (task) {
+                HttpService.prototype.editAndCreateTask = function (task) {
                     var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });
-                    return this.http.post('/setTask', JSON.stringify(task), { headers: headers });
+                    return this.http.post('/editAndCreateTask', JSON.stringify(task), { headers: headers });
                 };
                 HttpService.prototype.removeTask = function (id) {
                     var headers = new http_2.Headers({ 'Content-Type': 'application/json;charset=utf-8' });

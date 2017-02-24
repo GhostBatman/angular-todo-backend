@@ -36,9 +36,9 @@ System.register(['@angular/core', './http.service', 'rxjs/add/operator/map'], fu
                         _this.tasks = item.tasks;
                         _this.title = item.name;
                     };
-                    this.changeCheck = function (task) {
+                    this.changeTaskCheckStatus = function (task) {
                         task.is_checked = !task.is_checked;
-                        _this.httpService.setTask(task).subscribe(function () {
+                        _this.httpService.editAndCreateTask(task).subscribe(function () {
                         });
                         _this.getTasks();
                     };
@@ -58,7 +58,7 @@ System.register(['@angular/core', './http.service', 'rxjs/add/operator/map'], fu
                             is_checked: 0,
                             tab_id: this.currentTabId
                         };
-                        this.httpService.setTask(task_1).subscribe(function () {
+                        this.httpService.editAndCreateTask(task_1).subscribe(function () {
                             _this.tasks.push(task_1);
                         });
                         this.getTasks();

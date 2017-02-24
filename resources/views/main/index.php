@@ -7,7 +7,7 @@
 <div class="col-md-12">
     <div class="col-md-3">
         <div class="list-group">
-            <a href="#" class="list-group-item" *ngFor="let item of items" (click)="changeTask(item)">
+            <a href="#" class="list-group-item" *ngFor="let item of items" (click)="changeTab(item)">
                 <span class="badge">{{item.tasks.length}}</span> {{item.name}}</a>
         </div>
     </div>
@@ -17,12 +17,15 @@
             <!-- Default panel contents -->
             <div class="panel-heading"><h3>{{title}}</h3></div>
             <div class="panel-body">
-                <input type="text" placeholder="@#@#@#@@#@" [(ngModel)]="newTaskText"><input type="button" value="ADD" (click)="createNewTask()">
+                <input type="text" placeholder="@#@#@#@@#@" [(ngModel)]="newTaskText"><input type="button" value="ADD"
+                                                                                             (click)="createNewTask()">
             </div>
             <table class="table">
                 <tr *ngFor="let task of tasks">
-                    <td><input *ngIf="!task.is_checked" class="form-control" type="checkbox"  (change)="changeCheck(task)">
-                        <input *ngIf="task.is_checked" class="form-control" type="checkbox" (change)="changeCheck(task)" checked>
+                    <td><input *ngIf="!task.is_checked" class="form-control" type="checkbox"
+                               (change)="changeTaskCheckStatus(task)">
+                        <input *ngIf="task.is_checked" class="form-control" type="checkbox"
+                               (change)="changeTaskCheckStatus(task)" checked>
                     </td>
                     <td>
                         <h4 *ngIf="!task.is_checked">{{task.taskText}}</h4>

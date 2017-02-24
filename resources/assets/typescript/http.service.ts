@@ -11,13 +11,13 @@ export class HttpService {
         return this.http.get('/getItems')
     }
 
-    setTask(task) {
+    editAndCreateTask(task) {
         let headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
-        return this.http.post('/setTask', JSON.stringify(task), {headers: headers})
+        return this.http.post('/editAndCreateTask', JSON.stringify(task), {headers: headers})
     }
 
-    removeTask(id:number){
+    removeTask(id: number) {
         let headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
-        return this.http.post('/removeTask', {id: id} , {headers: headers})
+        return this.http.post('/removeTask', {id: id}, {headers: headers})
     }
 }

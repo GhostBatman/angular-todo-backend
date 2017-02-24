@@ -17,5 +17,5 @@ Route::get('/getItems', 'JsonApiController@index');
 Route::get('/getItems', 'JsonApiController@index');
 Route::get('/main/index.html', function () {
     return view('main.index');});
-Route::post('/setTask', 'JsonApiController@setTask');
+Route::post('/editAndCreateTask', 'JsonApiController@editAndCreateTask');
 Route::post('/removeTask', 'JsonApiController@removeTask');

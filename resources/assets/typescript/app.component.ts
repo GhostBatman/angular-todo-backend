@@ -32,15 +32,15 @@ export class AppComponent implements OnInit {
         });
     };
 
-    public changeTask = (item) => {
+    public changeTab = (item) => {
         this.currentTabId = item.id;
         this.tasks = item.tasks;
         this.title = item.name;
     };
 
-    public changeCheck = (task) => {
+    public changeTaskCheckStatus = (task) => {
         task.is_checked = !task.is_checked;
-        this.httpService.setTask(task) .subscribe(() => {
+        this.httpService.editAndCreateTask(task) .subscribe(() => {
         });
         this.getTasks();
     };
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
                 is_checked: 0,
                 tab_id: this.currentTabId
             };
-            this.httpService.setTask(task) .subscribe(() => {
+            this.httpService.editAndCreateTask(task) .subscribe(() => {
                 this.tasks.push(task)
             });
             this.getTasks();
@@ -62,10 +62,9 @@ export class AppComponent implements OnInit {
 
     public removeTask(task) {
         this.httpService.removeTask(task.id) .subscribe(() => {
-            this.tasks.splice(this.tasks.indexOf(task),1);
-            console.log(this.tasks);
+            this.tasks.splice(this.tasks.indexOf(task), 1);
         });
-       this.getTasks();
+        this.getTasks();
     }
 
     public createNewTab

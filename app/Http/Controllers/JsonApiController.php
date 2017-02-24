@@ -16,7 +16,7 @@ class JsonApiController extends Controller
         return Tab::with('tasks')->get();
     }
 
-    public function setTask(Request $r)
+    public function editAndCreateTask(Request $r)
     {
         if ($r->input('id')) {
             $task = Task::find($r->input('id'));
