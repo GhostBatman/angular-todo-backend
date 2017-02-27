@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Task;
 use Illuminate\Http\Request;
-
 use Requests;
 use App\Tab;
-use Illuminate\Support\Facades\Input;
 
 class JsonApiController extends Controller
 {
+    function __construct(Request $r)
+    {
+        $this->requset = $r;
+    }
 
     public function index()
     {
@@ -21,35 +23,35 @@ class JsonApiController extends Controller
         return $records->toArray();
     }
 
-    public function getTasks(Request $r)
+    public function getTasks()
     {
-return Task::where('tab_id', '=', $r->id)->get();
+        return Task::where('tab_id', '=', $this->requset->id)->get();
     }
 
-    public function updateTask(Request $r)
+    public function updateTask()
     {
-        $task = Task::find($r->input('id'));
-        $task->taskText = $r->input('taskText');
-        $task->is_checked = $r->input('is_checked');
-        $task->tab_id = $r->input('tab_id');
+        $task = Task::find($this->requset->input('id'));
+        $task->taskText = $this->requset->input('taskText');
+        $task->is_checked = $this->requset->input('is_checked');
+        $task->tab_id = $this->requset->input('tab_id');
         $task->save();
         return response('Ok', 200);
     }
 
-    public function createTask(Request $r)
+    public function createTask()
     {
         $task = new Task();
-        $task->taskText = $r->input('taskText');
-        $task->is_checked = $r->input('is_checked');
-        $task->tab_id = $r->input('tab_id');
+        $task->taskText = $this->requset->input('taskText');
+        $task->is_checked = $this->requset->input('is_checked');
+        $task->tab_id = $this->requset->input('tab_id');
         $task->save();
         return response('Ok', 200);
     }
 
-    public function removeTask(Request $r)
+    public function removeTask()
     {
-        if ($r->id) {
-            $task = Task::find($r->id);
+        if ($this->requset->id) {
+            $task = Task::find($this->requset->id);
             $task->delete();
         }
         return response('Ok', 200);

@@ -12,6 +12,7 @@ class Tab extends Model
     {
         return $this->hasMany('App\Task');
     }
+
     public function countTasks()
     {
         return $this->hasMany('App\Task')->count();

@@ -6,7 +6,9 @@
     <div class="col-md-3">
         <div class="list-group">
             <a href="#" class="list-group-item" *ngFor="let taskList of taskLists" (click)="changeTab(taskList)">
-                <span class="badge">{{taskList.countTasks}}</span> {{taskList.name}}</a>
+                <span class="badge">{{taskList.countTasks}}</span>
+                {{taskList.name}}
+            </a>
         </div>
     </div>
 
@@ -15,8 +17,8 @@
             <!-- Default panel contents -->
             <div class="panel-heading"><h3>{{title}}</h3></div>
             <div class="panel-body">
-                <input type="text" placeholder="You can add new task here." [(ngModel)]="newTaskText"><input type="button" value="ADD"
-                                                                                             (click)="createNewTask()">
+                <input type="text" placeholder="You can add new task here." [(ngModel)]="newTaskText">
+                <input type="button" value="ADD" (click)="createNewTask()">
             </div>
             <table class="table">
                 <tr *ngFor="let task of tasks">

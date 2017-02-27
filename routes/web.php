@@ -14,13 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/getItems', 'JsonApiController@index');
 Route::get('/main/index.html', function () {
     return view('main.index');
 });
-Route::post('/editAndCreateTask', 'JsonApiController@editAndCreateTask');
-Route::post('/removeTask', 'JsonApiController@removeTask');
-
 
 Route::group(['prefix' => 'api/v1'], function () {
     Route::get('/task-lists', 'JsonApiController@index');
