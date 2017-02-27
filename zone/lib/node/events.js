@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 "use strict";
 var utils_1 = require("../common/utils");
 // For EventEmitter
@@ -29,7 +36,8 @@ var events;
 try {
     events = require('events');
 }
-catch (err) { }
+catch (err) {
+}
 if (events && events.EventEmitter) {
     patchEventEmitterMethods(events.EventEmitter.prototype);
 }

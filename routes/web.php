@@ -12,10 +12,20 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');});
-Route::get('/getItems', 'JsonApiController@index');
+    return view('welcome');
+});
 Route::get('/getItems', 'JsonApiController@index');
 Route::get('/main/index.html', function () {
-    return view('main.index');});
+    return view('main.index');
+});
 Route::post('/editAndCreateTask', 'JsonApiController@editAndCreateTask');
 Route::post('/removeTask', 'JsonApiController@removeTask');
+
+
+Route::group(['prefix' => 'api/v1'], function () {
+    Route::get('/task-lists', 'JsonApiController@index');
+    Route::get('/task-lists/{id}/tasks', 'JsonApiController@getTasks');
+    Route::delete('/tasks/{id}', 'JsonApiController@removeTask');
+    Route::post('/task-lists/{id}/tasks', 'JsonApiController@createTask');
+    Route::put('/tasks/{id}', 'JsonApiController@updateTask');
+});

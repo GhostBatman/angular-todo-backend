@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 "use strict";
 var utils_1 = require("../common/utils");
 /*
@@ -5,7 +12,8 @@ var utils_1 = require("../common/utils");
  * things like redefining `createdCallback` on an element.
  */
 var _defineProperty = Object[utils_1.zoneSymbol('defineProperty')] = Object.defineProperty;
-var _getOwnPropertyDescriptor = Object[utils_1.zoneSymbol('getOwnPropertyDescriptor')] = Object.getOwnPropertyDescriptor;
+var _getOwnPropertyDescriptor = Object[utils_1.zoneSymbol('getOwnPropertyDescriptor')] =
+    Object.getOwnPropertyDescriptor;
 var _create = Object.create;
 var unconfigurablesKey = utils_1.zoneSymbol('unconfigurables');
 function propertyPatch() {
@@ -69,7 +77,8 @@ function _tryDefineProperty(obj, prop, desc, originalConfigurableFlag) {
     }
     catch (e) {
         if (desc.configurable) {
-            // In case of errors, when the configurable flag was likely set by rewriteDescriptor(), let's retry with the original flag value
+            // In case of errors, when the configurable flag was likely set by rewriteDescriptor(), let's
+            // retry with the original flag value
             if (typeof originalConfigurableFlag == 'undefined') {
                 delete desc.configurable;
             }

@@ -1,11 +1,18 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 "use strict";
 require("../zone");
-var event_target_1 = require("./event-target");
-var define_property_1 = require("./define-property");
-var register_element_1 = require("./register-element");
-var property_descriptor_1 = require("./property-descriptor");
 var timers_1 = require("../common/timers");
 var utils_1 = require("../common/utils");
+var define_property_1 = require("./define-property");
+var event_target_1 = require("./event-target");
+var property_descriptor_1 = require("./property-descriptor");
+var register_element_1 = require("./register-element");
 var set = 'set';
 var clear = 'clear';
 var blockingMethods = ['alert', 'prompt', 'confirm'];
@@ -56,8 +63,7 @@ function patchXHR(window) {
         sendNative.apply(data.target, data.args);
         return task;
     }
-    function placeholderCallback() {
-    }
+    function placeholderCallback() { }
     function clearTask(task) {
         var data = task.data;
         // Note - ideally, we would call data.target.removeEventListener here, but it's too late
@@ -76,13 +82,7 @@ function patchXHR(window) {
             return sendNative.apply(self, args);
         }
         else {
-            var options = {
-                target: self,
-                isPeriodic: false,
-                delay: null,
-                args: args,
-                aborted: false
-            };
+            var options = { target: self, isPeriodic: false, delay: null, args: args, aborted: false };
             return zone.scheduleMacroTask('XMLHttpRequest.send', placeholderCallback, options, scheduleTask, clearTask);
         }
     }; });
@@ -95,14 +95,12 @@ function patchXHR(window) {
             }
             task.zone.cancelTask(task);
         }
-        // Otherwise, we are trying to abort an XHR which has not yet been sent, so there is no task to cancel. Do nothing.
+        // Otherwise, we are trying to abort an XHR which has not yet been sent, so there is no task
+        // to cancel. Do nothing.
     }; });
 }
 /// GEO_LOCATION
 if (_global['navigator'] && _global['navigator'].geolocation) {
-    utils_1.patchPrototype(_global['navigator'].geolocation, [
-        'getCurrentPosition',
-        'watchPosition'
-    ]);
+    utils_1.patchPrototype(_global['navigator'].geolocation, ['getCurrentPosition', 'watchPosition']);
 }
 //# sourceMappingURL=browser.js.map

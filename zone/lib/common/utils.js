@@ -1,7 +1,9 @@
 /**
- * Suppress closure compiler errors about unknown 'process' variable
- * @fileoverview
- * @suppress {undefinedVars}
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
  */
 "use strict";
 exports.zoneSymbol = Zone['__symbol__'];
@@ -39,10 +41,7 @@ exports.isWebWorker = (typeof WorkerGlobalScope !== 'undefined' && self instance
 exports.isNode = (typeof process !== 'undefined' && {}.toString.call(process) === '[object process]');
 exports.isBrowser = !exports.isNode && !exports.isWebWorker && !!(typeof window !== 'undefined' && window['HTMLElement']);
 function patchProperty(obj, prop) {
-    var desc = Object.getOwnPropertyDescriptor(obj, prop) || {
-        enumerable: true,
-        configurable: true
-    };
+    var desc = Object.getOwnPropertyDescriptor(obj, prop) || { enumerable: true, configurable: true };
     // A property descriptor cannot have getter/setter and be writable
     // deleting the writable and value properties avoids this error:
     //
@@ -71,7 +70,8 @@ function patchProperty(obj, prop) {
             this[_prop] = null;
         }
     };
-    // The getter would return undefined for unassigned properties but the default value of an unassigned property is null
+    // The getter would return undefined for unassigned properties but the default value of an
+    // unassigned property is null
     desc.get = function () {
         return this[_prop] || null;
     };
@@ -107,9 +107,7 @@ function findExistingRegisteredTask(target, handler, name, capture, remove) {
         for (var i = 0; i < eventTasks.length; i++) {
             var eventTask = eventTasks[i];
             var data = eventTask.data;
-            if (data.handler === handler
-                && data.useCapturing === capture
-                && data.eventName === name) {
+            if (data.handler === handler && data.useCapturing === capture && data.eventName === name) {
                 if (remove) {
                     eventTasks.splice(i, 1);
                 }
@@ -162,13 +160,14 @@ function makeZoneAwareAddListener(addFnName, removeFnName, useCapturingParam, al
             // In cross site contexts (such as WebDriver frameworks like Selenium),
             // accessing the handler object here will cause an exception to be thrown which
             // will fail tests prematurely.
-            validZoneHandler = handler && handler.toString() === "[object FunctionWrapper]";
+            validZoneHandler = handler && handler.toString() === '[object FunctionWrapper]';
         }
         catch (e) {
             // Returning nothing here is fine, because objects in a cross-site context are unusable
             return;
         }
-        // Ignore special listeners of IE11 & Edge dev tools, see https://github.com/angular/zone.js/issues/150
+        // Ignore special listeners of IE11 & Edge dev tools, see
+        // https://github.com/angular/zone.js/issues/150
         if (!delegate || validZoneHandler) {
             return target[addFnSymbol](eventName, handler, useCapturing);
         }
@@ -219,6 +218,9 @@ function makeZoneAwareListeners(fnName) {
     return function zoneAwareEventListeners(self, args) {
         var eventName = args[0];
         var target = self || _global;
+        if (!target[EVENT_TASKS]) {
+            return [];
+        }
         return target[EVENT_TASKS]
             .filter(function (task) { return task.data.eventName === eventName; })
             .map(function (task) { return task.data.handler; });
@@ -262,7 +264,8 @@ function patchClass(className) {
             case 4:
                 this[originalInstanceKey] = new OriginalClass(a[0], a[1], a[2], a[3]);
                 break;
-            default: throw new Error('Arg list too long.');
+            default:
+                throw new Error('Arg list too long.');
         }
     };
     var instance = new OriginalClass(function () { });
@@ -316,7 +319,7 @@ function createNamedFn(name, delegate) {
 exports.createNamedFn = createNamedFn;
 function patchMethod(target, name, patchFn) {
     var proto = target;
-    while (proto && !proto.hasOwnProperty(name)) {
+    while (proto && Object.getOwnPropertyNames(proto).indexOf(name) === -1) {
         proto = Object.getPrototypeOf(proto);
     }
     if (!proto && target[name]) {

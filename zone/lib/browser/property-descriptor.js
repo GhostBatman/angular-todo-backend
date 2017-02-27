@@ -1,7 +1,15 @@
+/**
+ * @license
+ * Copyright Google Inc. All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.io/license
+ */
 "use strict";
-var webSocketPatch = require("./websocket");
 var utils_1 = require("../common/utils");
-var eventNames = 'copy cut paste abort blur focus canplay canplaythrough change click contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop durationchange emptied ended input invalid keydown keypress keyup load loadeddata loadedmetadata loadstart message mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup pause play playing progress ratechange reset scroll seeked seeking select show stalled submit suspend timeupdate volumechange waiting mozfullscreenchange mozfullscreenerror mozpointerlockchange mozpointerlockerror error webglcontextrestored webglcontextlost webglcontextcreationerror'.split(' ');
+var webSocketPatch = require("./websocket");
+var eventNames = 'copy cut paste abort blur focus canplay canplaythrough change click contextmenu dblclick drag dragend dragenter dragleave dragover dragstart drop durationchange emptied ended input invalid keydown keypress keyup load loadeddata loadedmetadata loadstart message mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup pause play playing progress ratechange reset scroll seeked seeking select show stalled submit suspend timeupdate volumechange waiting mozfullscreenchange mozfullscreenerror mozpointerlockchange mozpointerlockerror error webglcontextrestored webglcontextlost webglcontextcreationerror'
+    .split(' ');
 function propertyDescriptorPatch(_global) {
     if (utils_1.isNode) {
         return;
@@ -36,8 +44,8 @@ function propertyDescriptorPatch(_global) {
 }
 exports.propertyDescriptorPatch = propertyDescriptorPatch;
 function canPatchViaPropertyDescriptor() {
-    if (utils_1.isBrowser && !Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'onclick')
-        && typeof Element !== 'undefined') {
+    if (utils_1.isBrowser && !Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'onclick') &&
+        typeof Element !== 'undefined') {
         // WebKit https://bugs.webkit.org/show_bug.cgi?id=134364
         // IDL interface attributes are not configurable
         var desc = Object.getOwnPropertyDescriptor(Element.prototype, 'onclick');
@@ -63,7 +71,7 @@ function patchViaCapturingAllTheEvents() {
     var _loop_1 = function (i) {
         var property = eventNames[i];
         var onproperty = 'on' + property;
-        document.addEventListener(property, function (event) {
+        self.addEventListener(property, function (event) {
             var elt = event.target, bound, source;
             if (elt) {
                 source = elt.constructor['name'] + '.' + onproperty;

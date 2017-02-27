@@ -1,14 +1,12 @@
 <div class="page-header">
     <h1 style="margin-left: 40px">Todo list</h1>
 </div>
-
-
 <div class="col-md-12"></div>
 <div class="col-md-12">
     <div class="col-md-3">
         <div class="list-group">
-            <a href="#" class="list-group-item" *ngFor="let item of items" (click)="changeTab(item)">
-                <span class="badge">{{item.tasks.length}}</span> {{item.name}}</a>
+            <a href="#" class="list-group-item" *ngFor="let taskList of taskLists" (click)="changeTab(taskList)">
+                <span class="badge">{{taskList.countTasks}}</span> {{taskList.name}}</a>
         </div>
     </div>
 
@@ -17,7 +15,7 @@
             <!-- Default panel contents -->
             <div class="panel-heading"><h3>{{title}}</h3></div>
             <div class="panel-body">
-                <input type="text" placeholder="@#@#@#@@#@" [(ngModel)]="newTaskText"><input type="button" value="ADD"
+                <input type="text" placeholder="You can add new task here." [(ngModel)]="newTaskText"><input type="button" value="ADD"
                                                                                              (click)="createNewTask()">
             </div>
             <table class="table">

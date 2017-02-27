@@ -11,18 +11,34 @@ use Illuminate\Support\Facades\Input;
 
 class JsonApiController extends Controller
 {
+
     public function index()
     {
-        return Tab::with('tasks')->get();
+        $records = Tab::get();
+        foreach ($records as $record) {
+            $record->countTasks = $record->countTasks();
+        }
+        return $records->toArray();
     }
 
-    public function editAndCreateTask(Request $r)
+    public function getTasks(Request $r)
     {
-        if ($r->input('id')) {
-            $task = Task::find($r->input('id'));
-        } else {
-            $task = new Task();
-        }
+return Task::where('tab_id', '=', $r->id)->get();
+    }
+
+    public function updateTask(Request $r)
+    {
+        $task = Task::find($r->input('id'));
+        $task->taskText = $r->input('taskText');
+        $task->is_checked = $r->input('is_checked');
+        $task->tab_id = $r->input('tab_id');
+        $task->save();
+        return response('Ok', 200);
+    }
+
+    public function createTask(Request $r)
+    {
+        $task = new Task();
         $task->taskText = $r->input('taskText');
         $task->is_checked = $r->input('is_checked');
         $task->tab_id = $r->input('tab_id');
@@ -32,8 +48,8 @@ class JsonApiController extends Controller
 
     public function removeTask(Request $r)
     {
-        if ($r->input('id')) {
-            $task = Task::find($r->input('id'));
+        if ($r->id) {
+            $task = Task::find($r->id);
             $task->delete();
         }
         return response('Ok', 200);

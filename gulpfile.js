@@ -18,22 +18,12 @@ require('elixir-typescript');
 elixir(function(mix){
     mix.sass('app.scss')
         .webpack('app.js')
-        .copy('node_modules/@angular', 'public/js/@angular')
-        .copy('node_modules/anular2-in-memory-web-api', 'public/js/anular2-in-memory-web-api')
-        .copy('node_modules/core-js', 'public/js/core-js')
-        .copy('node_modules/reflect-metadata', 'public/js/reflect-metadata')
-        .copy('node_modules/systemjs', 'public/js/systemjs')
-        .copy('node_modules/rxjs', 'public/js/rxjs')
-        .copy('node_modules/zone.js', 'public/js/zone.js')
-        .copy('node modules/bootstap/dist/css',  'public/')
-        .copy('node modules/bootstap/dist/fonts',  'public/')
-
     .typescript(
         [
             'app.component.ts',
             'app.module.ts',
             'main.ts',
-            'http.service.ts',
+            'task.list.service.ts',
         ],
         'public/app',
         {

@@ -1,48 +1,51 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpService} from './http.service';
+import {TaskListService} from './task.list.service';
 import 'rxjs/add/operator/map'
 
 @Component({
     selector: 'main',
-    providers: [HttpService],
+    providers: [TaskListService],
     templateUrl: 'main/index.html'
 })
 export class AppComponent implements OnInit {
-    items: any;
+    taskLists: any;
     tasks: any;
     title: any;
     newTaskText: string;
-    currentTabId: number;
+    currentTaskList: any;
 
-    constructor(private httpService: HttpService) {
+    constructor(private taskListService: TaskListService) {
     }
 
     ngOnInit() {
-        this.getTasks();
+        this.getTasksLists();
         setTimeout(function () {
-            this.tasks = this.items[0].tasks;
-            this.title = this.items[0].name;
+            this.changeTab(this.taskLists[0]);
         }, 3000)
 
     }
 
-    public getTasks = () => {
-        this.httpService.getData() .subscribe((data) => {
-            this.items = data.json();
+    public getTasksLists = () => {
+        this.taskListService.getTaskLists() .subscribe((data) => {
+            this.taskLists = data.json();
         });
     };
 
-    public changeTab = (item) => {
-        this.currentTabId = item.id;
-        this.tasks = item.tasks;
-        this.title = item.name;
+    public changeTab = (taskList) => {
+        this.taskListService.getTasks(taskList.id) .subscribe((data) => {
+            this.currentTaskList = taskList;
+            this.tasks = data.json();
+            this.title = taskList.name;
+        });
+
+
     };
 
     public changeTaskCheckStatus = (task) => {
         task.is_checked = !task.is_checked;
-        this.httpService.editAndCreateTask(task) .subscribe(() => {
+        this.taskListService.updateTask(task) .subscribe(() => {
         });
-        this.getTasks();
+        this.getTasksLists();
     };
 
     public createNewTask() {
@@ -50,24 +53,22 @@ export class AppComponent implements OnInit {
             let task = {
                 taskText: this.newTaskText,
                 is_checked: 0,
-                tab_id: this.currentTabId
+                tab_id: this.currentTaskList.id
             };
-            this.httpService.editAndCreateTask(task) .subscribe(() => {
-                this.tasks.push(task)
-            });
-            this.getTasks();
-
+            this.taskListService.createTask(task, this.currentTaskList.id)
+                .subscribe(() => {
+                });
+            this.getTasksLists();
+            this.changeTab(this.currentTaskList);
         }
     }
 
     public removeTask(task) {
-        this.httpService.removeTask(task.id) .subscribe(() => {
-            this.tasks.splice(this.tasks.indexOf(task), 1);
+        this.taskListService.removeTask(task.id) .subscribe(() => {
         });
-        this.getTasks();
+        this.getTasksLists();
+        this.changeTab(this.currentTaskList);
     }
-
-    public createNewTab
 
 
 }
