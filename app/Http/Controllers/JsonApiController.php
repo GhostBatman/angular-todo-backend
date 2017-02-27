@@ -11,7 +11,7 @@ class JsonApiController extends Controller
 {
     function __construct(Request $r)
     {
-        $this->requset = $r;
+        $this->request = $r;
     }
 
     public function index()
@@ -25,15 +25,15 @@ class JsonApiController extends Controller
 
     public function getTasks()
     {
-        return Task::where('tab_id', '=', $this->requset->id)->get();
+        return Task::where('tab_id', '=', $this->request->id)->get();
     }
 
     public function updateTask()
     {
-        $task = Task::find($this->requset->input('id'));
-        $task->taskText = $this->requset->input('taskText');
-        $task->is_checked = $this->requset->input('is_checked');
-        $task->tab_id = $this->requset->input('tab_id');
+        $task = Task::find($this->request->input('id'));
+        $task->taskText = $this->request->input('taskText');
+        $task->is_checked = $this->request->input('is_checked');
+        $task->tab_id = $this->request->input('tab_id');
         $task->save();
         return response('Ok', 200);
     }
@@ -41,17 +41,17 @@ class JsonApiController extends Controller
     public function createTask()
     {
         $task = new Task();
-        $task->taskText = $this->requset->input('taskText');
-        $task->is_checked = $this->requset->input('is_checked');
-        $task->tab_id = $this->requset->input('tab_id');
+        $task->taskText = $this->request->input('taskText');
+        $task->is_checked = $this->request->input('is_checked');
+        $task->tab_id = $this->request->input('tab_id');
         $task->save();
         return response('Ok', 200);
     }
 
     public function removeTask()
     {
-        if ($this->requset->id) {
-            $task = Task::find($this->requset->id);
+        if ($this->request->id) {
+            $task = Task::find($this->request->id);
             $task->delete();
         }
         return response('Ok', 200);
