@@ -23,6 +23,17 @@ class JsonApiController extends Controller
         return $records->toArray();
     }
 
+    public function createTaskList()
+    {
+        $newTaskListName = $this->request->input('taskList');
+        $taskList = new Tab();
+        $taskList->name = $newTaskListName;
+        $taskList->active = true;
+        $taskList->save();
+        return response('Ok', 200);
+
+    }
+
     public function getTasks()
     {
         return Task::where('tab_id', '=', $this->request->id)->get();

@@ -11,6 +11,11 @@ export class TaskListService {
         return this.http.get('/api/v1/task-lists')
     }
 
+    createTaskList(taskList: string) {
+        let headers = new Headers({'Content-Type': 'application/json;charset=utf-8'});
+        return this.http.post('/api/v1/task-lists', {taskList: taskList}, {headers: headers})
+    }
+
     getTasks(id) {
         return this.http.get('/api/v1/task-lists/' + id + '/tasks');
     }

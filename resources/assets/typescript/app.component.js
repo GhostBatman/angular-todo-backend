@@ -60,6 +60,12 @@ var AppComponent = (function () {
         this.getTasksLists();
         this.changeTab(this.currentTaskList);
     };
+    AppComponent.prototype.createNewTaskList = function () {
+        this.taskListService.createTaskList(this.newTaskListText)
+            .subscribe(function () {
+        });
+        this.ngOnInit();
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([

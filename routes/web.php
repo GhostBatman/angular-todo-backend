@@ -24,4 +24,5 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::delete('/tasks/{id}', 'JsonApiController@removeTask');
     Route::post('/task-lists/{id}/tasks', 'JsonApiController@createTask');
     Route::put('/tasks/{id}', 'JsonApiController@updateTask');
+    Route::post('/task-lists', 'JsonApiController@createTaskList');
 });

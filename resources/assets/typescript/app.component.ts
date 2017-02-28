@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
     title: any;
     newTaskText: string;
     currentTaskList: any;
+    newTaskListText: string;
 
     constructor(private taskListService: TaskListService) {
     }
@@ -37,8 +38,6 @@ export class AppComponent implements OnInit {
             this.tasks = data.json();
             this.title = taskList.name;
         });
-
-
     };
 
     public changeTaskCheckStatus = (task) => {
@@ -68,6 +67,13 @@ export class AppComponent implements OnInit {
         });
         this.getTasksLists();
         this.changeTab(this.currentTaskList);
+    }
+
+    public createNewTaskList() {
+        this.taskListService.createTaskList(this.newTaskListText)
+            .subscribe(() => {
+                });
+        this.ngOnInit();
     }
 
 

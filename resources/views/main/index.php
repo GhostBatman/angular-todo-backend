@@ -9,6 +9,10 @@
                 <span class="badge">{{taskList.countTasks}}</span>
                 {{taskList.name}}
             </a>
+            <a href="#" class="list-group-item">
+                <input type="text" placeholder="Add new" [(ngModel)]="newTaskListText">
+                <input type="button" value="Add" (click)="createNewTaskList()">
+            </a>
         </div>
     </div>
 
@@ -21,7 +25,7 @@
                 <input type="button" value="ADD" (click)="createNewTask()">
             </div>
             <table class="table">
-                <tr *ngFor="let task of tasks">
+                <tr *ngFor="let task of tasks" >
                     <td><input *ngIf="!task.is_checked" class="form-control" type="checkbox"
                                (change)="changeTaskCheckStatus(task)">
                         <input *ngIf="task.is_checked" class="form-control" type="checkbox"

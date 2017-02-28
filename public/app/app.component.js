@@ -71,6 +71,12 @@ System.register(['@angular/core', './task.list.service', 'rxjs/add/operator/map'
                     this.getTasksLists();
                     this.changeTab(this.currentTaskList);
                 };
+                AppComponent.prototype.createNewTaskList = function () {
+                    this.taskListService.createTaskList(this.newTaskListText)
+                        .subscribe(function () {
+                    });
+                    this.ngOnInit();
+                };
                 AppComponent = __decorate([
                     core_1.Component({
                         selector: 'main',
