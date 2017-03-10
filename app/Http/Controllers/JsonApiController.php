@@ -9,6 +9,13 @@ use App\Tab;
 
 class JsonApiController extends Controller
 {
+    protected $headers = [
+        'Access-Control-Allow-Origin' => 'http://loc2.todo.kg',
+        "Access-Control-Allow-Credentials" => "true",
+        "Access-Control-Allow-Methods" => " GET, PUT, POST, DELETE, OPTIONS",
+        "Access-Control-Allow-Headers" => "Origin, Content-Type, X-Auth-Token , Authorization",
+    ];
+
     function __construct(Request $r)
     {
         $this->request = $r;
@@ -20,7 +27,7 @@ class JsonApiController extends Controller
         foreach ($records as $record) {
             $record->countTasks = $record->countTasks();
         }
-        return $records->toArray();
+        return response($records->toArray(), 200)->withHeaders($this->headers);;
     }
 
     public function createTaskList()
@@ -30,13 +37,14 @@ class JsonApiController extends Controller
         $taskList->name = $newTaskListName;
         $taskList->active = true;
         $taskList->save();
-        return response('Ok', 200);
+        return response('Ok', 200)->withHeaders($this->headers);
 
     }
 
     public function getTasks()
     {
-        return Task::where('tab_id', '=', $this->request->id)->get();
+        $tasks = Task::where('tab_id', '=', $this->request->id)->get();
+        return response($tasks, 200)->withHeaders($this->headers);;
     }
 
     public function updateTask()
@@ -46,7 +54,7 @@ class JsonApiController extends Controller
         $task->is_checked = $this->request->input('is_checked');
         $task->tab_id = $this->request->input('tab_id');
         $task->save();
-        return response('Ok', 200);
+        return response('Ok', 200)->withHeaders($this->headers);;
     }
 
     public function createTask()
@@ -56,7 +64,7 @@ class JsonApiController extends Controller
         $task->is_checked = $this->request->input('is_checked');
         $task->tab_id = $this->request->input('tab_id');
         $task->save();
-        return response('Ok', 200);
+        return response('Ok', 200)->withHeaders($this->headers);;
     }
 
     public function removeTask()
@@ -65,6 +73,6 @@ class JsonApiController extends Controller
             $task = Task::find($this->request->id);
             $task->delete();
         }
-        return response('Ok', 200);
+        return response('Ok', 200)->withHeaders($this->headers);;
     }
 }

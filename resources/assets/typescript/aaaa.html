@@ -1,5 +1,0 @@
-<div class="col-md-12"><h1>Task</h1></div>
-<div class="col-md-12">
-    <div class="col-md-3"><div *ngFor="let item of taskLists" (click)="changeTask(item)"><a href="#">{{item.name}}</a></div></div>
-    <div class="col-md-9" ><input type="hidden" [(ngModel)]="tasks"><div *ngFor="let task of tasks">{{task.taskText}}</div></div>
-</div>
