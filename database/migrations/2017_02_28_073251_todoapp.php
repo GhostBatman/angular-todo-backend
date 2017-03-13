@@ -15,11 +15,11 @@ class Todoapp extends Migration
     {
         Schema::create('tasks', function (Blueprint $table){
 			$table->increments('id');
-			$table->string('taskText');
+			$table->string('task_text');
 			$table->boolean('is_checked');
 			$table->timestamps();
-			$table->integer('tab_id')->unsigned();
-            $table->foreign('tab_id')->references('id')->on('tabs')->onDelete('cascade');
+			$table->integer('task_list_id')->unsigned();
+            $table->foreign('task_list_id')->references('id')->on('task_lists')->onDelete('cascade');
 		});
     }
 

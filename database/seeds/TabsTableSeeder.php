@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Tab;
+use App\TaskList;
 
 class TabsTableSeeder extends Seeder
 {
@@ -13,7 +13,7 @@ class TabsTableSeeder extends Seeder
      */
     public function run()
     {
-        $taskList = new Tab();
+        $taskList = new TaskList();
         $taskList->name = 'First Tasks';
         $taskList->active = true;
         $taskList->save();

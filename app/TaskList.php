@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tab extends Model
+class TaskList extends Model
 {
 
 
