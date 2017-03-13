@@ -10,7 +10,7 @@ use App\Tab;
 class JsonApiController extends Controller
 {
     protected $headers = [
-        'Access-Control-Allow-Origin' => 'http://loc2.todo.kg',
+        'Access-Control-Allow-Origin' => '*',
         "Access-Control-Allow-Credentials" => "true",
         "Access-Control-Allow-Methods" => " GET, PUT, POST, DELETE, OPTIONS",
         "Access-Control-Allow-Headers" => "Origin, Content-Type, X-Auth-Token , Authorization",
