@@ -75,4 +75,11 @@ class TodoAppController extends Controller
         }
         return response('Ok', 200, $this->headers);
     }
+
+    public function updateTaskLists(){
+        $taskList = TaskList::find($this->request->input('id'));
+        $taskList->name = $this->request->input('name');
+        $taskList->save();
+        return response('Ok', 200, $this->headers);
+    }
 }

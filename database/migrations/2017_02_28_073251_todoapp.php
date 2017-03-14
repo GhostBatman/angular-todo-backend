@@ -13,14 +13,15 @@ class Todoapp extends Migration
      */
     public function up()
     {
-        Schema::create('tasks', function (Blueprint $table){
-			$table->increments('id');
-			$table->string('task_text');
-			$table->boolean('is_checked');
-			$table->timestamps();
-			$table->integer('task_list_id')->unsigned();
+        Schema::create('tasks', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('task_text');
+            $table->boolean('is_checked');
+            $table->timestamps();
+            $table->softDeletes();
+            $table->integer('task_list_id')->unsigned();
             $table->foreign('task_list_id')->references('id')->on('task_lists')->onDelete('cascade');
-		});
+        });
     }
 
     /**
@@ -30,4 +31,6 @@ class Todoapp extends Migration
      */
     public function down()
     {
-Schema::drop('tasks');}}
+        Schema::drop('tasks');
+    }
+}

@@ -25,5 +25,6 @@ Route::group(['prefix' => 'api/v1'], function () {
     Route::delete('/tasks/{id}', 'TodoAppController@removeTask');
     Route::post('/task-lists/{id}/tasks', 'TodoAppController@createTask');
     Route::put('/tasks/{id}', 'TodoAppController@updateTask');
+    Route::put('/taskLists/{id}', 'TodoAppController@updateTaskLists');
     Route::post('/task-lists', 'TodoAppController@createTaskList');
 });
