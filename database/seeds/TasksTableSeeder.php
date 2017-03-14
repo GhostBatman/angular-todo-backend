@@ -13,7 +13,7 @@ class TasksTableSeeder extends Seeder
     public function run()
     {
         $task = new Task();
-        $task->taskText = 'learn Angular';
+        $task->task_text = 'learn Angular';
         $task->is_checked = false;
         $task->tab_id = 1;
         $task->save();
