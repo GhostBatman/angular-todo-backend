@@ -6,6 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class todoAppTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /**
      * A basic test example.
      *
@@ -13,13 +15,25 @@ class todoAppTest extends TestCase
      */
     public function testTaskLists()
     {
-       $response=$this->call('get','api/v1/task-lists');
-        $content = $response->getContent();
-        self::assertJson($content);
+        $this->seed();
+
+        $this->json('GET', 'api/v1/task-lists')
+            ->seeJson([
+                "id" => 1,
+                'name' => "First Tasks",
+            ]);
     }
-    public function testTasks(){
-        $response=$this->call('get','api/v1/task-lists/1/tasks');
-        $content = $response->getContent();
-        self::assertJson($content);
+
+    public function testTasks()
+    {
+        $this->seed();
+
+        $this->json('GET', 'api/v1/task-lists/1/tasks')
+            ->seeJson([
+                "task_text" => 'learn Angular',
+                "is_checked" => 0,
+                "task_list_id" => 1,
+            ]);
     }
+
 }

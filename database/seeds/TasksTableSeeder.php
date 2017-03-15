@@ -15,7 +15,7 @@ class TasksTableSeeder extends Seeder
         $task = new Task();
         $task->task_text = 'learn Angular';
         $task->is_checked = false;
-        $task->tab_id = 1;
+        $task->task_list_id = 1;
         $task->save();
     }
 }

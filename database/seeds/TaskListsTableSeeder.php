@@ -16,6 +16,5 @@ class TaskListsTableSeeder extends Seeder
         $taskList = new TaskList();
         $taskList->name = 'First Tasks';
         $taskList->save();
-        return response('Ok', 200);
     }
 }
