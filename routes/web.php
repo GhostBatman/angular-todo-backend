@@ -20,11 +20,11 @@ Route::get('/main/index.html', function () {
 });
 
 Route::group(['prefix' => 'api/v1'], function () {
-    Route::get('/task-lists', 'TodoAppController@index');
-    Route::get('/task-lists/{id}/tasks', 'TodoAppController@getTasks');
-    Route::delete('/tasks/{id}', 'TodoAppController@removeTask');
-    Route::post('/task-lists/{id}/tasks', 'TodoAppController@createTask');
-    Route::put('/tasks/{id}', 'TodoAppController@updateTask');
-    Route::put('/taskLists/{id}', 'TodoAppController@updateTaskLists');
-    Route::post('/task-lists', 'TodoAppController@createTaskList');
+    Route::get('/task-lists', 'TaskListController@index');
+    Route::get('/task-lists/{id}/tasks', 'TaskController@getTasks');
+    Route::delete('/tasks/{id}', 'TaskController@removeTask');
+    Route::post('/task-lists/{id}/tasks', 'TaskController@createTask');
+    Route::put('/tasks/{id}', 'TaskController@updateTask');
+    Route::put('/taskLists/{id}', 'TaskListController@updateTaskLists');
+    Route::post('/task-lists', 'TaskListController@createTaskList');
 });

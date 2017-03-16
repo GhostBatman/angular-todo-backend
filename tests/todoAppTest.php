@@ -35,5 +35,4 @@ class todoAppTest extends TestCase
                 "task_list_id" => 1,
             ]);
     }
-
 }
