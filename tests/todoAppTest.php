@@ -13,7 +13,7 @@ class todoAppTest extends TestCase
      *
      * @return void
      */
-    public function testTaskLists()
+    public function testReturnsTaskLists()
     {
         $this->seed();
 
@@ -24,15 +24,15 @@ class todoAppTest extends TestCase
             ]);
     }
 
-    public function testTasks()
+    public function testReturnsTasksOfTaskLists()
     {
         $this->seed();
 
         $this->json('GET', 'api/v1/task-lists/1/tasks')
             ->seeJson([
                 "task_text" => 'learn Angular',
-                "is_checked" => 0,
-                "task_list_id" => 1,
+                "is_checked" => "0",
+                "task_list_id" => "1",
             ]);
     }
 }
