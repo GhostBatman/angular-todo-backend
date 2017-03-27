@@ -2,52 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Task;
+use App\Repositories\Contracts\TaskRepositoryInterface;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
 
-    protected $request;
-
-    function __construct(Request $r)
+    function __construct(TaskRepositoryInterface $tasks)
     {
-        $this->request = $r;
+        $this->tasks = $tasks;
+
     }
 
-    public function getTasks()
+    public function index()
     {
-        $tasks = Task::where('task_list_id', '=', $this->request->id)->get();
+        $tasks = $this->tasks->all();
         return $this->respondData($tasks);
     }
 
     public function updateTask()
     {
-        $task = Task::find($this->request->input('id'));
-        $task->task_text = $this->request->input('task_text');
-        $task->is_checked = $this->request->input('is_checked');
-        $task->task_list_id = $this->request->input('task_list_id');
-        $task->save();
+        $this->tasks->update();
         return $this->respondSuccess();
     }
 
     public function createTask()
     {
 
-        $task = new Task();
-        $task->task_text = $this->request->input('task_text');
-        $task->is_checked = $this->request->input('is_checked');
-        $task->task_list_id = $this->request->input('task_list_id');
-        $task->save();
+        $this->tasks->create();
         return $this->respondSuccess();
     }
 
     public function removeTask()
     {
-        if ($this->request->id) {
-            $task = Task::find($this->request->id);
-            $task->delete();
-        }
+        $this->tasks->delete();
         return $this->respondSuccess();
     }
 

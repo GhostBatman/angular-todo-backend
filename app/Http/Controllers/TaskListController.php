@@ -2,43 +2,32 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\TaskList;
+use App\Repositories\Contracts\TaskListRepositoryInterface;
 
 class TaskListController extends Controller
 {
 
-    protected $request;
-
-    function __construct(Request $r)
+    function __construct(TaskListRepositoryInterface $taskLists)
     {
-        $this->request = $r;
+        $this->taskLists = $taskLists;
     }
 
     public function index()
     {
-        $records = TaskList::get();
-        foreach ($records as $record) {
-            $record->countTasks = $record->countTasks();
-        }
-        return $this->respondData($records->toArray());
+        $req = $this->taskLists->all();
+        return $this->respondData($req);
     }
 
     public function createTaskList()
     {
-        $newTaskListName = $this->request->input('taskList');
-        $taskList = new TaskList();
-        $taskList->name = $newTaskListName;
-        $taskList->save();
+        $this->taskLists->create();
         return $this->respondSuccess();
 
     }
 
     public function updateTaskLists()
     {
-        $taskList = TaskList::find($this->request->input('id'));
-        $taskList->name = $this->request->input('name');
-        $taskList->save();
+        $this->taskLists->update();
         return $this->respondSuccess();
     }
 }
