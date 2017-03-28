@@ -4,11 +4,27 @@ namespace App\Repositories\Contracts;
 
 interface TaskRepositoryInterface
 {
-    public function all($taskListId);
+    /**
+     * @param int $taskListId
+     * @return mixed
+     */
+    public function all(int $taskListId);
 
+    /**
+     * @param array $task
+     * @return mixed
+     */
     public function update(array $task);
 
+    /**
+     * @param array $task
+     * @return mixed
+     */
     public function create(array $task);
 
-    public function delete($taskId = null);
+    /**
+     * @param int|null $taskId
+     * @return mixed
+     */
+    public function delete(int $taskId = null);
 }

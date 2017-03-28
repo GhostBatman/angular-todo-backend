@@ -10,7 +10,7 @@ class TaskRepository implements TaskRepositoryInterface
 {
     protected $task;
 
-    public function all($taskListId)
+    public function all(int $taskListId)
     {
         $records = Task::where('task_list_id', '=', $taskListId)->get();
         $model = [];
@@ -39,7 +39,7 @@ class TaskRepository implements TaskRepositoryInterface
         $this->task->save();
     }
 
-    public function delete($taskId = null)
+    public function delete(int $taskId = null)
     {
         if ($taskId !== null) {
             $this->task = Task::find($taskId);

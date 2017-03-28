@@ -4,9 +4,21 @@ namespace App\Repositories\Contracts;
 
 interface TaskListRepositoryInterface
 {
-public function all();
 
-public function create(string $newTaskListName);
+    /**
+     * @return mixed
+     */
+    public function all();
 
-public function update(int $taskListId);
+    /**
+     * @param string $newTaskListName
+     * @return mixed
+     */
+    public function create(string $newTaskListName);
+
+    /**
+     * @param int $taskListId
+     * @return mixed
+     */
+    public function update(int $taskListId);
 }
