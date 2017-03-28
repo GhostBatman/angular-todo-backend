@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models\DB;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,11 +10,11 @@ class TaskList extends Model
 
     public function tasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany('App\Models\DB\Task');
     }
 
     public function countTasks()
     {
-        return $this->hasMany('App\Task')->count();
+        return $this->hasMany('App\Models\DB\Task')->count();
     }
 }

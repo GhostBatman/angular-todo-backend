@@ -4,11 +4,11 @@ namespace App\Repositories\Contracts;
 
 interface TaskRepositoryInterface
 {
-    public function all();
+    public function all($taskListId);
 
-    public function update();
+    public function update(array $task);
 
-    public function create();
+    public function create(array $task);
 
-    public function delete();
+    public function delete($taskId = null);
 }

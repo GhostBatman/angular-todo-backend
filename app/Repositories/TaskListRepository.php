@@ -3,7 +3,7 @@ namespace App\Repositories;
 
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\TaskListRepositoryInterface;
-use App\TaskList;
+use App\Models\DB\TaskList;
 
 class TaskListRepository implements TaskListRepositoryInterface
 {
@@ -20,8 +20,7 @@ class TaskListRepository implements TaskListRepositoryInterface
         foreach ($records as $record) {
             $record->countTasks = $record->countTasks();
         }
-        return ($records->toArray());
-
+        return ($records);
     }
 
     public function create()

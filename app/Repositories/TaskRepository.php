@@ -2,46 +2,50 @@
 namespace App\Repositories;
 
 use App\Repositories\Contracts\TaskRepositoryInterface;
-use App\Task;
+use App\Models\DB\Task;
+use App\Models\TaskModel;
 use Illuminate\Http\Request;
+
 
 class TaskRepository implements TaskRepositoryInterface
 {
     protected $request;
+    protected $task;
 
-    function __construct(Request $r)
+    public function all($taskListId)
     {
-        $this->request = $r;
+        $records = Task::where('task_list_id', '=', $taskListId)->get();
+        $model = [];
+        foreach ($records as $record) {
+            $task = new TaskModel($record->toArray());
+            array_push($model, $task);
+        }
+        return $model;
     }
 
-    public function all()
+    public function update(array $task)
     {
-        return Task::where('task_list_id', '=', $this->request->id)->get();
+        $this->task = Task::find($task['id']);
+        $this->task->task_text = $task['task_text'];
+        $this->task->is_checked = $task['is_checked'];
+        $this->task->task_list_id = $task['task_list_id'];
+        $this->task->save();
     }
 
-    public function update()
+    public function create(array $task)
     {
-        $task = Task::find($this->request->input('id'));
-        $task->task_text = $this->request->input('task_text');
-        $task->is_checked = $this->request->input('is_checked');
-        $task->task_list_id = $this->request->input('task_list_id');
-        $task->save();
+        $this->task = new Task();
+        $this->task->task_text = $task['task_text'];
+        $this->task->is_checked = $task['is_checked'];
+        $this->task->task_list_id = $task['task_list_id'];
+        $this->task->save();
     }
 
-    public function create()
+    public function delete($taskId = null)
     {
-        $task = new Task();
-        $task->task_text = $this->request->input('task_text');
-        $task->is_checked = $this->request->input('is_checked');
-        $task->task_list_id = $this->request->input('task_list_id');
-        $task->save();
-    }
-
-    public function delete()
-    {
-        if ($this->request->id) {
-            $task = Task::find($this->request->id);
-            $task->delete();
+        if ($taskId !== null) {
+            $this->task = Task::find($taskId);
+            $this->task->delete();
         }
     }
 
