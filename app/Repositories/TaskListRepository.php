@@ -4,6 +4,7 @@ namespace App\Repositories;
 use Illuminate\Http\Request;
 use App\Repositories\Contracts\TaskListRepositoryInterface;
 use App\Models\DB\TaskList;
+use App\Models\TaskListModel;
 
 class TaskListRepository implements TaskListRepositoryInterface
 {
@@ -17,23 +18,27 @@ class TaskListRepository implements TaskListRepositoryInterface
     public function all()
     {
         $records = TaskList::get();
+        $model = [];
         foreach ($records as $record) {
             $record->countTasks = $record->countTasks();
+            $task = new TaskListModel($record->toArray());
+            array_push($model, $task);
         }
-        return ($records);
+        return $model;
+
     }
 
-    public function create()
+    public function create(string $newTaskListName)
     {
-        $newTaskListName = $this->request->input('taskList');
+
         $taskList = new TaskList();
         $taskList->name = $newTaskListName;
         $taskList->save();
     }
 
-    public function update()
+    public function update(int $taskListId)
     {
-        $taskList = TaskList::find($this->request->input('id'));
+        $taskList = TaskList::find($taskListId);
         $taskList->name = $this->request->input('name');
         $taskList->save();
     }

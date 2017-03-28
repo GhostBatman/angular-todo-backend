@@ -4,12 +4,10 @@ namespace App\Repositories;
 use App\Repositories\Contracts\TaskRepositoryInterface;
 use App\Models\DB\Task;
 use App\Models\TaskModel;
-use Illuminate\Http\Request;
 
 
 class TaskRepository implements TaskRepositoryInterface
 {
-    protected $request;
     protected $task;
 
     public function all($taskListId)

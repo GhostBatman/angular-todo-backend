@@ -6,7 +6,7 @@ interface TaskListRepositoryInterface
 {
 public function all();
 
-public function create();
+public function create(string $newTaskListName);
 
-public function update();
+public function update(int $taskListId);
 }

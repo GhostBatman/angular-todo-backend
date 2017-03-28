@@ -15,7 +15,9 @@ class TaskListModel extends TodoModel
 
     public $name;
 
-    protected $fields = ['id', 'name'];
+    public $countTasks;
+
+    protected $fields = ['id', 'name', 'countTasks'];
 
     public function __construct(array $data)
     {

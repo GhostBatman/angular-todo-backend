@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Repositories\Contracts\TaskListRepositoryInterface;
 
+/**
+ * @property TaskListRepositoryInterface taskLists
+ */
 class TaskListController extends Controller
 {
+
+    protected $request;
 
     function __construct(TaskListRepositoryInterface $taskLists)
     {
@@ -20,14 +26,16 @@ class TaskListController extends Controller
 
     public function createTaskList()
     {
-        $this->taskLists->create();
+        $newTaskListName = $this->request->input('taskList');
+        $this->taskLists->create($newTaskListName);
         return $this->respondSuccess();
 
     }
 
     public function updateTaskLists()
     {
-        $this->taskLists->update();
+        $taskListId = $this->request->input('id');
+        $this->taskLists->update($taskListId);
         return $this->respondSuccess();
     }
 }
