@@ -27,19 +27,5 @@ abstract class TodoModel
         $this->$name = $value;
     }
 
-    public function toArray($keys)
-    {
-        $array = [];
-        foreach ($this->fields as $field) {
-            if ($keys) {
-                if (in_array($field, $keys)) {
-                    $array[$field] = $this->$field;
-                }
-            } else {
-                $array[$field] = $this->$field;
-            }
-        }
-        return $array;
-    }
 
 }
