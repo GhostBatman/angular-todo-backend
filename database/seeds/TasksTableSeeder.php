@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Task;
+use App\Models\DB\Task;
 
 class TasksTableSeeder extends Seeder
 {
