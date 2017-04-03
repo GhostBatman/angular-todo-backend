@@ -13,8 +13,9 @@ class TaskListController extends Controller
 
     protected $request;
 
-    function __construct(TaskListRepositoryInterface $taskLists)
+    function __construct(TaskListRepositoryInterface $taskLists, Request $r)
     {
+        $this->request = $r;
         $this->taskLists = $taskLists;
     }
 
@@ -23,6 +24,7 @@ class TaskListController extends Controller
         $req = $this->taskLists->all();
         return $this->respondData($req);
     }
+
 
     public function createTaskList()
     {
