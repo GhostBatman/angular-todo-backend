@@ -10,4 +10,8 @@ class Task extends Model
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
+
+   // public function lastTask(){
+   //     return $this->hasOne(ScheduledTaskLogTable::class, 'scheduled_task_id')->orderBy('id', 'desc');
+   // }
 }

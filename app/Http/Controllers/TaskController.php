@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\Contracts\TaskRepositoryInterface;
 use Illuminate\Http\Request;
+use League\Flysystem\Exception;
 
 /**
  * @property TaskRepositoryInterface tasks
@@ -27,12 +28,16 @@ class TaskController extends Controller
 
     public function updateTask()
     {
-        $task['id'] = $this->request->input('id');
-        $task['task_text'] = $this->request->input('task_text');
-        $task['is_checked'] = $this->request->input('is_checked');
-        $task['task_list_id'] = $this->request->input('task_list_id');
-        $this->tasks->update($task);
-        return $this->respondSuccess();
+        try {
+            $task['id'] = $this->request->input('id');
+            $task['task_text'] = $this->request->input('task_text');
+            $task['is_checked'] = $this->request->input('is_checked');
+            $task['task_list_id'] = $this->request->input('task_list_id');
+            $this->tasks->update($task);
+            return $this->respondSuccess();
+        }catch (Exception $e){
+            return $this->respondError();
+        }
     }
 
     public function createTask()
@@ -40,13 +45,14 @@ class TaskController extends Controller
         $task['task_text'] = $this->request->input('task_text');
         $task['is_checked'] = $this->request->input('is_checked');
         $task['task_list_id'] = $this->request->input('task_list_id');
-        $this->tasks->create($task);
-        return $this->respondSuccess();
+        $res = $this->tasks->create($task);
+        return $this->respondData($res);
     }
 
     public function removeTask()
-    { $taskId = $this->request->id;
-        $this->tasks->delete($taskId );
+    {
+        $taskId = $this->request->id;
+        $this->tasks->delete($taskId);
         return $this->respondSuccess();
     }
 

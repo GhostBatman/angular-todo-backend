@@ -37,6 +37,7 @@ class TaskRepository implements TaskRepositoryInterface
         $this->task->is_checked = $task['is_checked'];
         $this->task->task_list_id = $task['task_list_id'];
         $this->task->save();
+        return $this->task->where('task_list_id','=', $task['task_list_id'])->orderBy('id', 'desc')->take(1)->get();
     }
 
     public function delete(int $taskId = null)
